@@ -568,9 +568,7 @@ def evolve(pop, target, retain=0.2, random_select=0.05, mutate=0.01):
     for individual in parents:
         if mutate > random.random():
             pos_to_mutate = random.randint(0, len(individual)-1)
-            # this mutation is not ideal, because it
-            # restricts the range of possible values,
-            # but the function is unaware of the min/max
+            # function is unaware of the min/max
             # values used to create the individuals,
             individual[pos_to_mutate] = random.randint(
                 min(individual), max(individual))
