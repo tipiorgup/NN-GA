@@ -45,6 +45,7 @@ import Utils.DirNav
 from Utils.dftb_traj_io import read_scan_traj
 import Utils.netBuilder
 from Utils.netBuilder import netBuilder
+from Utils.netTrainer import netTrainer
 
 train_name = 'data'
 save_name = 'data_model'
@@ -288,10 +289,7 @@ def fitness(individual, target):
                         hidden_activation='tanh',
                         dropout_type="NoFirstDrop", dropout_ratio=0.2)
     model = builder.build_molecular_net(at_idx_map, subnets)
- 
 
-    Mode='NoFirstDrop'
-    model = main_network(input_dim_list, at_idx_map, mode, nUnit=34)
 
     def idx_generator(n_samples, val_ratio, test_ratio):
         """
@@ -417,7 +415,7 @@ def fitness(individual, target):
         return pd.Series(inp_arr)
         
     model_folder = "model_2B_nUnit"
-    #!mkdir $model_folder
+    trainer = netTrainer(model, verbose=1, folder=model_folder)
     nUnit = n
 
     check1 = model_folder +'/' + str(nUnit) + '.hdf5'
